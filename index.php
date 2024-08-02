@@ -1,3 +1,9 @@
+<?php
+$Collection = file_get_contents("data.json");
+$Collection = json_decode($Collection,true);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,9 +15,24 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <style>
+
+      button{
+        border:none;
+        
+        transition-duration: 0.4;
+      }
+      button:hover{
+        background-color: #04AA6D;
+      }
+      button:active{
+        background-color: #28E6A0;
+      }
+    </style>
+
 </head>
 
-<body class="bg-dark">
+<body class="bg-info">
   <div class="container">
     <div class="mt-4 mb-5 d-flex justify-content-between align-items-center">
       <h1 class="text-white">Get your Pokemon!</h1>
@@ -23,16 +44,28 @@
     <table class="table table-dark">
       <thead>
         <tr>
-          <th scope="col">Image</th>
+          <th scope="col"><i class="fa fa-camera-retro" aria-hidden="true"></i>     Image</th>
           <th scope="col">Name</th>
           <th scope="col">Species</th>
-          <th scope="col">Description</th>
+          <th scope="col"><i class="fa fa-book" aria-hidden="true"></i>     Description</th>
           <th scope="col">Weight</th>
           <th scope="col">Height</th>
           <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody>
+        <?php foreach($Collection as $pokemon):?>
+          <tr>
+            <td> <img src="<?php echo $pokemon["image"]["thumbnail"] ?>"> </td>
+            <td><?php echo $pokemon["name"]["english"] ?></td>
+            <td><?php echo strtoupper($pokemon["species"]) ?></td>
+            <td><?php echo $pokemon["description"] ?></td>
+            <td><?php echo $pokemon["profile"]["weight"] ?></td>
+            <td><?php echo $pokemon["profile"]["height"] ?></td>
+            <td><button>Collect</button></td>
+            </tr>
+          </tr>
+          <?php endforeach ;?>
 
         <!-- Write your code here -->
       </tbody>
